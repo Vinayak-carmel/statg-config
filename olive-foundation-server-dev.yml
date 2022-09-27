@@ -1,0 +1,54 @@
+server:
+  port:  7072
+
+#eureka:
+#  client:
+#    region: default
+#    registry-fetch-interval-seconds: 5
+#    service-url:
+#      defaultZone: http://localhost:7074/eureka/
+
+spring:
+  application:
+    name: olive-foundation-server
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: "http://localhost:7071/.well-known/jwks.json"
+
+# &serverTimezone=UTC
+  datasource:
+    url: jdbc:mysql://165.22.217.19:3306/olive?createDatabaseIfNotExist=true&useLegacyDatetimeCode=false
+    username: carmel
+    password: P@ssw0rd
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    initialization-mode: always
+
+
+  jpa:
+    hibernate:
+#      properties:
+#        jdbc:
+#          time_zone: UTC        
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      ddl-auto: update
+    show-sql: true
+    generate-ddl: true
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL5Dialect    
+      
+logging:
+  file:
+    name: ./logs/olive-foundation-server.log
+    
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    prefer-ip-address: true
+    hostname: localhost
+
